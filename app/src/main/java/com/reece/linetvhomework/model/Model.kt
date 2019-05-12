@@ -1,5 +1,7 @@
 package com.reece.linetvhomework.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import java.util.*
 
 class Model {
@@ -13,12 +15,42 @@ class Model {
      * "rating": 4.4526
      * },
      */
-    data class Drama(val drama_id: Int,
-                   val name: String,
-                   val total_views: Long,
-                   val created_at: Date,
-                   val thumb: String,
-                   val rating: Float)
+    data class Drama(
+        val drama_id: Int,
+        val name: String,
+        val total_views: Long,
+        val created_at: Date,
+        val thumb: String,
+        val rating: Float
+    ) : Parcelable {
+        constructor(source: Parcel) : this(
+            source.readInt(),
+            source.readString(),
+            source.readLong(),
+            source.readSerializable() as Date,
+            source.readString(),
+            source.readFloat()
+        )
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+            writeInt(drama_id)
+            writeString(name)
+            writeLong(total_views)
+            writeSerializable(created_at)
+            writeString(thumb)
+            writeFloat(rating)
+        }
+
+        companion object {
+            @JvmField
+            val CREATOR: Parcelable.Creator<Drama> = object : Parcelable.Creator<Drama> {
+                override fun createFromParcel(source: Parcel): Drama = Drama(source)
+                override fun newArray(size: Int): Array<Drama?> = arrayOfNulls(size)
+            }
+        }
+    }
 
     /**
      * {
