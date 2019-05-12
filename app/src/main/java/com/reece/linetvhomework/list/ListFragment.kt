@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.findNavController
 import com.reece.linetvhomework.R
 import com.reece.linetvhomework.hide
 import com.reece.linetvhomework.model.Model
@@ -59,6 +60,15 @@ class ListFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 2)
             adapter = listAdapter
             addItemDecoration(ListItemDecoration())
+        }
+
+        listAdapter.listener = object : ListAdapter.OnListItemClickListener {
+            override fun onClick(drama: Model.Drama) {
+                val bundle = Bundle()
+                bundle.putParcelable("drama", drama)
+
+                view.findNavController().navigate(R.id.list_to_info, bundle)
+            }
         }
 
         progressBar = view.list_progressbar
@@ -147,10 +157,12 @@ class ListFragment : Fragment() {
                         }
 
                     } else {
+                        storeSearch("")
+                        restoreMessage()
+
                         listAdapter.data.clear()
                         listAdapter.data.addAll(data)
                         listAdapter.notifyDataSetChanged()
-                        restoreMessage()
                     }
                 }
             }
@@ -158,6 +170,7 @@ class ListFragment : Fragment() {
 
         searchClearBtn.setOnClickListener {
             searchInput.setText("")
+            storeSearch("")
         }
     }
 

@@ -8,7 +8,12 @@ import com.reece.linetvhomework.model.Model
 
 class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
 
+    interface OnListItemClickListener {
+        fun onClick(drama: Model.Drama)
+    }
+
     val data = arrayListOf<Model.Drama>()
+    var listener : OnListItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_drama_grid, parent, false)
@@ -20,6 +25,11 @@ class ListAdapter : RecyclerView.Adapter<ListViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: ListViewHolder, position: Int) {
-        viewHolder.bind(data[position])
+        val drama = data[position]
+
+        viewHolder.bind(drama)
+        viewHolder.itemView.setOnClickListener {
+            listener?.onClick(drama)
+        }
     }
 }
