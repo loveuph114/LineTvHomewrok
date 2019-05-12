@@ -29,6 +29,21 @@ object Repository {
         }
     }
 
+    suspend fun getDramaWithId(context: Context, id: Int): Model.Drama? {
+        return withContext(Dispatchers.Main) {
+            val result = if (isNetworkConnected(context)) {
+                val apiService = ApiService.create()
+                apiService.getDramas().await().body()
+            } else {
+                fetchFromLocalCache(context)
+            }
+
+            return@withContext result?.data?.find {
+                it.drama_id == id
+            }
+        }
+    }
+
     private fun isNetworkConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 

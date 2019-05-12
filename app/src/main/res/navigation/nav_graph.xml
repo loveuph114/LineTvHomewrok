@@ -14,8 +14,10 @@
             app:destination="@+id/info_page"/>
     </fragment>
 
-    <activity
+    <fragment
         android:id="@+id/info_page"
-        android:name="com.reece.linetvhomework.info.InfoActivity"
-        android:label="INFO"/>
+        android:name="com.reece.linetvhomework.info.InfoFragment"
+        android:label="INFO">
+        <deepLink app:uri="http://www.example.com/dramas/{dramaId}" />
+    </fragment>
 </navigation>

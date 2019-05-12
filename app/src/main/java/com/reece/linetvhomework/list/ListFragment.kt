@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +73,6 @@ class ListFragment : Fragment() {
         }
 
         progressBar = view.list_progressbar
-        progressBar.show()
 
         messageView = view.list_message
         messageView.hide()
@@ -91,12 +91,12 @@ class ListFragment : Fragment() {
         }
 
         mainScope.launch {
+            progressBar.show()
             val result = Repository.getDramas(requireContext())
             val dramas = result.first
             val isNetworkResult = result.second
 
             progressBar.hide()
-
             if (dramas != null) {
                 data = dramas.data
 
