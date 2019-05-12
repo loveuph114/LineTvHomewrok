@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.reece.linetvhomework.R
 import com.reece.linetvhomework.hide
 import com.reece.linetvhomework.model.Repository
@@ -17,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.jetbrains.anko.support.v4.toast
 
 class ListFragment : Fragment() {
 
@@ -25,8 +27,9 @@ class ListFragment : Fragment() {
     }
 
     private val listAdapter = ListAdapter()
-    private lateinit var recyclerView : RecyclerView
-    private lateinit var progressBar : ProgressBar
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var messageView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
@@ -41,13 +44,32 @@ class ListFragment : Fragment() {
         progressBar = view.list_progressbar
         progressBar.show()
 
+        messageView = view.list_message
+        messageView.hide()
+
         mainScope.launch {
-            val result = Repository.getDramas()
+            val result = Repository.getDramas(view.context)
+            val dramas = result.first
+            val isNetworkResult = result.second
 
             progressBar.hide()
-            result?.apply {
-                listAdapter.data.addAll(this.data)
+
+            if (dramas != null) {
+                listAdapter.data.addAll(dramas.data)
                 listAdapter.notifyDataSetChanged()
+
+                if(!isNetworkResult) {
+                    toast("No network, showing offline data.")
+                }
+            } else {
+                val message = if(isNetworkResult) {
+                    "Oops! Something wrong :(\nPlease check your network status or try again later."
+                } else {
+                    "Oops! You are Offline!\nThere is no offline data can show,\nPlease check your network status."
+                }
+
+                messageView.text = message
+                messageView.show()
             }
         }
 
