@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/drama_grid_photo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1.4"
+        android:adjustViewBounds="true"
+        tools:background="#f00"
+    />
+
+    <TextView
+        android:id="@+id/drama_grid_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="致我們單純的小美好"
+        android:textSize="16sp"
+        android:textColor="#303030"
+        app:layout_constraintTop_toBottomOf="@+id/drama_grid_photo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:lines="1"
+        android:ellipsize="end"
+    />
+
+    <RatingBar
+        android:id="@+id/drama_grid_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="3.5"
+        style="?android:attr/ratingBarStyleSmall"
+        app:layout_constraintTop_toBottomOf="@+id/drama_grid_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+    />
+
+    <TextView
+        android:id="@+id/drama_grid_rating_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="3.5"
+        app:layout_constraintLeft_toRightOf="@+id/drama_grid_rating"
+        app:layout_constraintTop_toTopOf="@+id/drama_grid_rating"
+        app:layout_constraintBottom_toBottomOf="@+id/drama_grid_rating"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="12sp"
+    />
+
+    <TextView
+        android:id="@+id/drama_grid_create_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="出版日期：2017-11-23"
+        app:layout_constraintTop_toBottomOf="@+id/drama_grid_rating"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="12sp"
+    />
+
+</android.support.constraint.ConstraintLayout>

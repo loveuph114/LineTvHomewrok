@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/list_page">
+
+    <fragment
+        android:id="@+id/list_page"
+        android:name="com.reece.linetvhomework.list.ListFragment"
+        android:label="LIST">
+        <action
+            android:id="@+id/list_to_info"
+            app:destination="@+id/info_page"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/info_page"
+        android:name="com.reece.linetvhomework.info.InfoFragment"
+        android:label="INFO"/>
+</navigation>
